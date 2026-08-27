@@ -1,0 +1,3 @@
+curl_cffi>=0.7
+structlog>=24.1
+flask>=3.0
