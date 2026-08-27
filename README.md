@@ -97,3 +97,7 @@ GET http://localhost:5000/solve?url=<url>&proxies=1.2.3.4:8080,5.6.7.8:8080
 - discord.com - works
 - stockx.com - works
 - acehardware.com - the homepage invisible challenge works but the login page upgraded to managed challenge (turnstile), so cookies alone wont get you into the login
+
+---
+
+⚠️ **this is for educational purposes only.** im sharing this for learning and research. dont use it to bypass cloudflare on sites you dont own or dont have permission to test. respect the sites protections and their terms of service.
