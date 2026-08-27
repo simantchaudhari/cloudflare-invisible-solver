@@ -6,6 +6,10 @@ solves the cloudflare invisible challenge (the jsd/oneshot one, not the managed 
 
 this only works on sites that use the invisible challenge flow. if the site upgraded to managed challenge (cType: 'managed' with the turnstile widget) this wont help you there. discord, stockx, and other sites that still use the invisible flow work fine.
 
+## speed
+
+solves in about 1-2 seconds. no browser, no headless, no waiting around. just http requests with tls impersonation and the encoded payload POST. thats it.
+
 ## how it works
 
 cloudflare serves a 302 redirect to a main.js file. that js has a 65-char encryption key and a oneshot token embedded in it. the solver:
