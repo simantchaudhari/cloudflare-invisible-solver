@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CF Clearance Solver — JSD Invisible Challenge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- Header -->
+    <header class="site-header">
+      <div class="site-logo">
+        <div class="logo-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="logo-name">CF Clearance <span class="logo-name-dim">Solver</span></span>
+      </div>
+      <div class="site-badges">
+        <span class="site-badge badge-green"><span class="live-dot"></span>Live</span>
+        <span class="site-badge badge-gray">Chrome 146 TLS</span>
+        <span class="site-badge badge-gray">JSD / Oneshot</span>
+      </div>
+    </header>
+
+    <!-- Tagline -->
+    <div class="tagline">
+      <h1 class="tagline-title">CF Clearance <span class="tagline-accent">Solver</span></h1>
+      <p class="tagline-sub">Solves Cloudflare's invisible JSD/oneshot challenge in ~1–2s via pure HTTP &amp; Chrome 146 TLS impersonation. No browser required.</p>
+    </div>
+
+    <div class="card">
+
+      <!-- URL Input -->
+      <div class="field-group">
+        <input
+          id="url-input"
+          type="text"
+          class="url-input"
+          placeholder="https://5sim.net/cdn-cgi/challenge-platform/scripts/jsd/main.js"
+          spellcheck="false"
+          autocomplete="off"
+        />
+        <p class="hint">Format: <span class="hint-code">https://&lt;domain&gt;/cdn-cgi/challenge-platform/scripts/jsd/main.js</span></p>
+      </div>
+
+      <!-- Proxies -->
+      <div class="field-group">
+        <label class="field-label">Proxies <span class="optional">(Optional)</span></label>
+        <input
+          id="proxies-input"
+          type="text"
+          class="proxy-input"
+          placeholder="1.2.3.4:8080, 5.6.7.8:8080"
+          spellcheck="false"
+          autocomplete="off"
+        />
+        <p class="hint">Comma-separated list of HTTP/HTTPS proxies</p>
+      </div>
+
+      <!-- Button -->
+      <button class="solve-btn" id="solve-btn" onclick="solveChallenge()">
+        <span id="btn-label">Solve Challenge</span>
+        <svg id="btn-spinner" class="spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" style="display:none">
+          <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+          <path d="M12 2a10 10 0 0110 10" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <!-- Results -->
+      <div id="results" style="display:none">
+
+        <!-- Success / Error badge -->
+        <div id="status-badge"></div>
+
+        <!-- Error message -->
+        <div id="error-detail" class="error-detail" style="display:none">
+          <p id="error-text"></p>
+        </div>
+
+        <!-- Cookie fields -->
+        <div id="result-fields" style="display:none">
+
+          <div class="result-block">
+            <div class="result-header">
+              <span class="result-label">CF_CLEARANCE COOKIE</span>
+              <button class="copy-btn" onclick="copyVal('cf-val', this)">Copy</button>
+            </div>
+            <div class="result-body">
+              <code id="cf-val"></code>
+            </div>
+          </div>
+
+          <div class="result-block" id="cfbm-block" style="display:none">
+            <div class="result-header">
+              <span class="result-label">__CF_BM COOKIE</span>
+              <button class="copy-btn" onclick="copyVal('cfbm-val', this)">Copy</button>
+            </div>
+            <div class="result-body">
+              <code id="cfbm-val"></code>
+            </div>
+          </div>
+
+          <div class="result-block">
+            <div class="result-header">
+              <span class="result-label">USER-AGENT <span class="result-sublabel">(REQUIRED FOR REQUESTS)</span></span>
+              <button class="copy-btn" onclick="copyVal('ua-val', this)">Copy</button>
+            </div>
+            <div class="result-body">
+              <code id="ua-val"></code>
+            </div>
+          </div>
+
+          <div class="result-block">
+            <div class="result-header">
+              <span class="result-label">RAW JSON RESPONSE</span>
+              <button class="copy-btn" onclick="copyVal('json-val', this)">Copy</button>
+            </div>
+            <div class="result-body result-body-json">
+              <pre id="json-val"></pre>
+            </div>
+          </div>
+
+          <div class="notice">
+            <span class="notice-bolt">⚡</span>
+            <p><strong>Important:</strong> Cloudflare binds <code>cf_clearance</code> to the exact <strong>User-Agent</strong> used during solving. Ensure your scraper/HTTP client uses the exact User-Agent shown above!</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
